@@ -1,22 +1,23 @@
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/CartContext'
 
-function CartItem({ item }) {
-  const { updateQuantity, removeFromCart } = useCart();
+const CartItem = ({ item }) => {
+  const { removeFromCart } = useCart()
 
   return (
-    <div className="flex items-center justify-between border-b py-2">
-      <div>
-        <h3 className="font-bold">{item.title}</h3>
-        <p>${item.price} x {item.quantity} = ${(item.price * item.quantity).toFixed(2)}</p>
+    <div className="flex items-center justify-between border-b py-4">
+      <img src={item.image} alt={item.title} className="h-16 w-16 object-contain mr-4" />
+      <div className="flex-1">
+        <h3 className="font-semibold">{item.title}</h3>
+        <p className="text-sm text-gray-600">₹{(item.price * 85).toFixed(2)}</p>
       </div>
-      <div className="flex items-center gap-2">
-        <button onClick={() => updateQuantity(item.id, -1)} className="px-2 py-1 bg-gray-200">-</button>
-        <span>{item.quantity}</span>
-        <button onClick={() => updateQuantity(item.id, 1)} className="px-2 py-1 bg-gray-200">+</button>
-        <button onClick={() => removeFromCart(item.id)} className="px-2 py-1 bg-red-500 text-white">Remove</button>
-      </div>
+      <button
+        className="px-3 py-1 bg-red-500 text-white rounded"
+        onClick={() => removeFromCart(item.id)}
+      >
+        Remove
+      </button>
     </div>
-  );
+  )
 }
 
-export default CartItem;
+export default CartItem
